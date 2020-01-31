@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [{ "src": "index.js", "use": "@now/node-server" }],
+  "alias": "kanyefun",
+  "routes": [
+    {
+      "src": "/quotes",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/sentence/(.*)",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/map/(.*)",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }
+  ]
+}
