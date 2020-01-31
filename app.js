@@ -3,8 +3,8 @@ const express = require("express");
 const app = express();
 
 //import markov chain files
-const formatted_quotes = require("./scripts/formatted-quotes");
-const { generate_map, generate_sentence } = require("./scripts/markov");
+const kanyeQuotes = require("./scripts/formatted-quotes");
+const { createMarkovChain, generateQuote } = require("./scripts/markov");
 
 //allow origins to access
 app.use((req, res, next) => {
@@ -17,20 +17,26 @@ app.use((req, res, next) => {
 });
 
 // Routes which should handle request
-app.get("/quotes", (req, res, next) => {
-  res.send(formatted_quotes);
+app.get("/kanyequotes", (req, res, next) => {
+  res.send(kanyeQuotes);
 });
 
-app.get("/sentence/:order", (req, res, next) => {
+app.get("/quote/:order", (req, res, next) => {
   const order = parseInt(req.params.order, 10);
-  const map = generate_map(formatted_quotes, order);
-  res.json(generate_sentence(map));
+  const markov = createMarkovChain(kanyeQuotes, order);
+  res.json(generateQuote(markov));
 });
 
-app.get("/map/:order", (req, res, next) => {
+app.get("/markov/:order", (req, res, next) => {
   const order = parseInt(req.params.order, 10);
-  const map = generate_map(formatted_quotes, order);
-  res.json(map);
+  const markov = createMarkovChain(kanyeQuotes, order);
+  res.json(markov);
+});
+
+app.get("/", (req, res, next) => {
+  res.json(
+    "Please try one of these routes /quote/:order, /markov/:order, /kanyequotes"
+  );
 });
 
 //handles errors

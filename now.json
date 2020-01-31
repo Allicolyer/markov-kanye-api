@@ -4,17 +4,17 @@
   "alias": "kanyefun",
   "routes": [
     {
-      "src": "/quotes",
+      "src": "/kanyequotes",
       "dest": "/index.js",
       "methods": ["GET"]
     },
     {
-      "src": "/sentence/(.*)",
+      "src": "/quote/(.*)",
       "dest": "/index.js",
       "methods": ["GET"]
     },
     {
-      "src": "/map/(.*)",
+      "src": "/markov/(.*)",
       "dest": "/index.js",
       "methods": ["GET"]
     }
